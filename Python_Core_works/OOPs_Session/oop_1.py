@@ -192,3 +192,7 @@ a1.account_info()
 
 print(SmartBankAccount.check_account_number(1234567890))
 print(SmartBankAccount.check_account_number(12345))
+
+
+print("---------------------------Inheritance---------------------------------")
+
