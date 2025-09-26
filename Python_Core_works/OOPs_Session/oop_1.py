@@ -196,17 +196,17 @@ print(SmartBankAccount.check_account_number(12345))
 
 print("---------------------------Inheritance---------------------------------")
 
-class BankAccount():
+class BankAccount(): # Declare Class
 
-    def __init__(self,account_holder,account_no,balance):
+    def __init__(self,account_holder,account_no,balance): # Constructor
         self.account_holder=account_holder
         self.account_no=account_no
         self.balance=balance
 
-    def deposit(self,ammount):
+    def deposit(self,ammount): # method
         self.balance += ammount
         return self.balance
-    def withdraw(self,ammount):
+    def withdraw(self,ammount): # method
         if self.balance >= ammount:
             self.balance -=ammount
             return self.balance
@@ -214,24 +214,24 @@ class BankAccount():
         else:
             return "insufficient balance"
 
-class SavingAccount(BankAccount):
+class SavingAccount(BankAccount): # child class 1 having parent as BankAccount
 
-    def __init__(self,account_holder,account_no,balance,intrestrate):
-        super().__init__(account_holder,account_no,balance)
+    def __init__(self,account_holder,account_no,balance,intrestrate): # constructor
+        super().__init__(account_holder,account_no,balance) # calling parent class's  constructor
         self.intrestrate=intrestrate
 
-    def apply_intrest(self):
+    def apply_intrest(self): # child method
         self.balance += (self.intrestrate / 100) * self.balance
         return self.balance
 
 
-class CurrentAccount(BankAccount):
+class CurrentAccount(BankAccount): # child class 2 having parent as BankAccount
 
-    def __init__(self,account_holder,account_no,balance,overdraft_limit):
-        super().__init__(account_holder,account_no,balance)
+    def __init__(self,account_holder,account_no,balance,overdraft_limit): # constructor
+        super().__init__(account_holder,account_no,balance) # passing parent constructor
         self.overdraft_limit=overdraft_limit
 
-    def withdraw(self,ammount):
+    def withdraw(self,ammount): # child method
         if self.balance + self.overdraft_limit >= ammount:
             self.balance -= ammount
             return self.balance
@@ -240,7 +240,7 @@ class CurrentAccount(BankAccount):
 
 
 
-# test cases
+# -------------------test cases------------------------------------
 
 # Create Saving Account
 savings = SavingAccount("Abhishek", 101, 5000, 5)
@@ -260,4 +260,174 @@ print("Initial Balance:", current.balance)
 print("Withdraw 4000 (within overdraft):", current.withdraw(4000)) # -1000 (allowed)
 print("Withdraw 2000 more (exceeds overdraft):", current.withdraw(2000)) # Overlimit exceeded
 print("Deposit 5000:", current.deposit(5000)) # Balance updated
+
+print("---------------------Single-Inheritance---------------------------")
+
+"""
+super() → parent ka constructor/method call karne ke liye.
+MRO (Method Resolution Order) → agar multiple parents hain, Python left-to-right order follow karta hai.
+Inheritance → real life relation jaisa (Car is a Vehicle, Dog is an Animal).
+"""
+# Parent class
+class Vehicle():
+    def __init__(self,brand):
+        self.brand=brand
+
+    def show_brand(self):
+        print(f"brand name: {self.brand}")
+
+
+# Child Class
+class Car(Vehicle):
+    def __init__(self,brand,doors):
+        super().__init__(brand) # parent constructor call
+        self.doors=doors
+
+    def show_car_details(self):
+        print(
+            f"car brand: {self.brand},"
+            f"no of doors: {self.doors},"
+              )
+
+c1 = Car("BMW", 4)
+c1.show_car_details()
+c1.show_brand()
+
+
+
+print("---------------------Multi_level-Inheritance---------------------------")
+"""
+GrandParent>>Parent>>child
+
+in this way child will able to recall the methods of parent as well as grand parents methods too
+"""
+
+class LinvingBeing():
+    def breath(self):
+        return "Inhale O2, Exhale Co2 "
+
+class Animal(LinvingBeing):
+    def Graze(self):
+        return "Graze and wonder"
+
+    def hunt_and_fuck(self):
+        return(f"hunt the smaller animal then them and with with ownkind")
+
+
+class Dog(Animal):
+    def feature_of_dog(self):
+        return "have four leg"
+
+
+# declare object
+
+husky=Dog()
+husky.breath()
+husky.feature_of_dog()
+husky.hunt_and_fuck()
+
+
+print("---------------------Multiple- Inheritance-----------------------")
+
+"""
+Jab ek child class ke multiple parents hote hain → usse multiple inheritance kehte hain.
+👉 Matlab ek class do (ya zyada) classes ka code inherit kar sakti hai.
+
+And Order of Execution Left to Right rhega
+"""
+
+
+class father():
+    def __init__(self,job,car,house):
+        self.job=job
+        self.car=car
+        self.house=house
+
+    def Dads_property(self):
+        print(
+            f"Profession: {self.job},"
+              f"Dad have: {self.house},"
+              f"dad car: {self.car}"
+              )
+
+class Mother():
+    def __init__(self,cooking,Jwellery,kindness):
+        self.cooking=cooking
+        self.Jwellery=Jwellery
+        self.kindness=kindness
+
+
+    def skill(self):
+        print(f"cooking skill: {self.cooking},"
+              f"mummy ownership: {self.Jwellery},"
+              f"mummy behaviour: {self.kindness}"
+              )
+
+class its_me_Abhishek(father,Mother):
+    # def __init__(self,skill,profession,ownership):
+    #     super().__init__(job,car,house)
+    #     super().__init__(cooking,Jwellery,kindness)
+    #     self.skill=skill
+    #     self.profession=profession
+    #     self.ownership=ownership
+    """ In case of multiple parent  we have to call them explicitly """
+
+    def __init__(self, job, car, house, cooking, jewellery, kindness, my_skill, profession, ownership):
+        father.__init__(self, job, car, house)
+        Mother.__init__(self, cooking, jewellery, kindness)
+        self.my_skill = my_skill
+        self.profession = profession
+        self.ownership = ownership
+
+    def child_skill(self):
+        print(
+            f"My skill: {self.cooking} (from mother), "
+            f"My car: {self.car} (from father), "
+            f"My profession: {self.my_skill}"
+        )
+
+
+
+    def child_ownership(self):
+        print(f"My ownership : {self.house},{self.Jwellery},{self.car}")
+
+
+# Test case
+
+abhi = its_me_Abhishek(
+    job="Engineer", car="BMW", house="Villa",
+    cooking="Indian Food", jewellery="Gold", kindness="Polite",
+    my_skill="Coding", profession="Software Developer", ownership="Laptop"
+)
+
+abhi.Dads_property()
+abhi.skill()
+abhi.child_skill()
+abhi.child_ownership()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
