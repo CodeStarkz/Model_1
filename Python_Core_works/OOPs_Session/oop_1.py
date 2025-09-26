@@ -196,3 +196,68 @@ print(SmartBankAccount.check_account_number(12345))
 
 print("---------------------------Inheritance---------------------------------")
 
+class BankAccount():
+
+    def __init__(self,account_holder,account_no,balance):
+        self.account_holder=account_holder
+        self.account_no=account_no
+        self.balance=balance
+
+    def deposit(self,ammount):
+        self.balance += ammount
+        return self.balance
+    def withdraw(self,ammount):
+        if self.balance >= ammount:
+            self.balance -=ammount
+            return self.balance
+
+        else:
+            return "insufficient balance"
+
+class SavingAccount(BankAccount):
+
+    def __init__(self,account_holder,account_no,balance,intrestrate):
+        super().__init__(account_holder,account_no,balance)
+        self.intrestrate=intrestrate
+
+    def apply_intrest(self):
+        self.balance += (self.intrestrate / 100) * self.balance
+        return self.balance
+
+
+class CurrentAccount(BankAccount):
+
+    def __init__(self,account_holder,account_no,balance,overdraft_limit):
+        super().__init__(account_holder,account_no,balance)
+        self.overdraft_limit=overdraft_limit
+
+    def withdraw(self,ammount):
+        if self.balance + self.overdraft_limit >= ammount:
+            self.balance -= ammount
+            return self.balance
+        else:
+            return("overlimit exceeded")
+
+
+
+# test cases
+
+# Create Saving Account
+savings = SavingAccount("Abhishek", 101, 5000, 5)
+
+print("---- Saving Account ----")
+print("Initial Balance:", savings.balance)
+print("Deposit 2000:", savings.deposit(2000))   # 7000
+print("Withdraw 3000:", savings.withdraw(3000)) # 4000
+print("Apply Interest:", savings.apply_intrest())  # 4000 + 5% = 4200
+
+
+# Create Current Account
+current = CurrentAccount("Singh", 102, 3000, 2000)
+
+print("\n---- Current Account ----")
+print("Initial Balance:", current.balance)
+print("Withdraw 4000 (within overdraft):", current.withdraw(4000)) # -1000 (allowed)
+print("Withdraw 2000 more (exceeds overdraft):", current.withdraw(2000)) # Overlimit exceeded
+print("Deposit 5000:", current.deposit(5000)) # Balance updated
+
