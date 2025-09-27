@@ -405,6 +405,75 @@ abhi.skill()
 abhi.child_skill()
 abhi.child_ownership()
 
+print("--------------------Encalsulation---------------------------------")
+
+
+"""
+Encapsulation ka matlab hai data (attributes  object ) aur methods (functions) ko ek class ke andar pack karna aur unki direct access ko control karna.
+
+Matlab: Class ke bahar se koi bhi attribute directly modify na kar paaye.
+Hum use karte hain access modifiers (yeh sirf ek convention hote hain Python me).
+
+Types of Access Modifiers 
+
+Public Modifiers = By default, means atributes can be accessed from anywhere
+
+Protected (_var)
+Ek convention hai: “Ye sirf class aur subclasses ke liye hai, bahar se use karna allowed hai but recommended nahi hai.”
+
+Protected (_var)
+Ek convention hai: “Ye sirf class aur subclasses ke liye hai, bahar se use karna allowed hai but recommended nahi hai.”
+
+"""
+# Example for Public
+class car(): # Declaring Class
+    def __init__(self,brand): # Inititalizing Attributes
+        self.brand=brand
+
+    def brand_detail(self):   # declaring method
+        print(f"brand detail: {self.brand}")
+
+
+Scarpion=car("Mahindra") # creating object
+
+
+Scarpion.brand_detail() # calling object method
+
+
+# let see the Protected Encasulation
+
+class car():
+    def __init__(self,brand):
+        self._brand=brand
+
+    def brand_details(self,brand):
+        print(f"Brand name is {self._brand}")
+
+
+GT_Mustang=car("Ford")
+
+print(GT_Mustang._brand)
+
+
+# lets go for private encasulation
+
+
+class Bike():
+    def __init__(self,mileage,top_speed):
+        self.__mileage=mileage
+        self.__top_speed=top_speed
+
+
+    def bike_details(self):
+        print(f"topspeed: {self.__top_speed}")
+        print(f"mileage: {self.__mileage}"
+              )
+
+pulsar=Bike(15,189)
+
+pulsar.bike_details()
+
+
 
 
 
