@@ -474,6 +474,17 @@ pulsar=Bike(15,189)
 pulsar.bike_details()
 
 
+print("------------------Abstraction-------------------")
+"""
+
+Abstraction: Logic/Implementation hide karna (user ko sirf interface dikhao, andar ka process chhupao).
+
+Python me abstraction karne ke liye hum abc module (Abstract Base Class) use karte hain.
+Ek abstract class banate hain jisme abstract methods hote hain (sirf declare, implement nahi karte).
+Us class ko koi child inherit karega, to usse compulsory override karna hoga.
+"""
+
+
 
 
 
