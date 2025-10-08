@@ -20,7 +20,6 @@ class racing_car(car):
     def Top_Speed(self):
         print("Have no limits,220kmphr-300")
 
-
 class business_car(car):
     def Top_Speed(self):
         print("150-200 kmph")
