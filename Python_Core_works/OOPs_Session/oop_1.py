@@ -17,7 +17,7 @@ print("________________________________________________________________")
 
 
 class Car:
-    item = "Luxury"   # class variable
+    item = "Luxury"   # class variable - remain same for all objects in the class / Class argument
 
     def __init__(self, brand, colour,**kwargs):   # constructor
         self.brand = brand              # instance variable
@@ -373,8 +373,8 @@ class its_me_Abhishek(father,Mother):
     """ In case of multiple parent  we have to call them explicitly """
 
     def __init__(self, job, car, house, cooking, jewellery, kindness, my_skill, profession, ownership):
-        father.__init__(self, job, car, house)
-        Mother.__init__(self, cooking, jewellery, kindness)
+        father.__init__(self, job, car, house) # explicitly call the parent constructor
+        Mother.__init__(self, cooking, jewellery, kindness) # explicitly call the parent constructor
         self.my_skill = my_skill
         self.profession = profession
         self.ownership = ownership
